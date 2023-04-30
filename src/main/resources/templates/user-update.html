@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:form="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>User Update</h1>
+<br>
+
+<form th:method="POST" th:action="@{/upUser}" th:object="${user}">
+    <input type="hidden" th:field="*{id}">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{username}" id="name">
+    <br><br>
+    <label for="surname">Surname</label>
+    <input type="text" th:field="*{surname}" id="surname">
+    <br><br>
+    <label for="password">Password</label>
+    <input type="password" th:field="*{password}" id="password">
+    <br><br>
+    <label for="role">Role</label>
+    <select th:field="*{roles}" id="role">
+        <option value="">Select a role...</option>
+        <option th:each="role : ${allRole}" th:value="${role.getId()}" th:text="${role.name}"></option>
+    </select>
+    <br><br>
+
+    <input type="submit" value="OK">
+
+</form>
+<br><br>
+<input type="button" value="Logout"
+       onclick="window.location.href = '/logout'" >
+
+
+</body>
+</html>

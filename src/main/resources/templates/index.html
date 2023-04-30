@@ -1,11 +1,50 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-<h1>Welcome to Index PAGE!</h1>
+<h2>All Users</h2>
+<br>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Password</th>
+        <th>Role</th>
+        <th>Operation</th>
+    </tr>
+    <th:block th:each="user : ${allUser}">
+        <tr>
 
+
+            <td th:text="${user.username}">name</td>
+            <td th:text="${user.surname}">surname</td>
+            <td th:text="${user.password}">password</td>
+            <td th:each="role : ${user.getRoles()}" th:text="${role.getName()}">role</td>
+            <td><a th:href="@{/updateUser(userId=${user.id})}">
+                <button>Update</button>
+            </a></td>
+            <td><form th:action="@{/deleteUser}" method="post">
+                <input type="hidden" name="userId" th:value="${user.id}" />
+                <button type="submit">Delete</button>
+            </form></td>
+        </tr>
+    </th:block>
+
+
+
+</table>
+<br><br>
+<input type="button" value="Add"
+       onclick="window.location.href = 'addUser'" >
+
+<br><br>
+
+<input type="button" value="Logout"
+       onclick="window.location.href = '/logout'" >
+<br><br>
 
 </body>
 </html>
