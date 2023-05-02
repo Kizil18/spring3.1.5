@@ -15,7 +15,6 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    @Transactional
     public List<User> listUser() {
         return userRepository.findAll();
     }
@@ -33,7 +32,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public User getUser(int id) {
         return userRepository.getById(id);
     }

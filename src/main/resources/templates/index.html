@@ -26,8 +26,9 @@
             <td><a th:href="@{/updateUser(userId=${user.id})}">
                 <button>Update</button>
             </a></td>
-            <td><form th:action="@{/deleteUser}" method="post">
+            <td><form th:action="@{/deleteUser}" method="POST">
                 <input type="hidden" name="userId" th:value="${user.id}" />
+                <input type="hidden" name="_method" value="DELETE" />
                 <button type="submit">Delete</button>
             </form></td>
         </tr>
