@@ -18,6 +18,12 @@ public class User implements UserDetails {
     private String username;
     @Column(name = "surname")
     private String surname;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "age")
+    private int age;
     @Column(name = "password")
     private String password;
 
@@ -30,11 +36,15 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String surname, Set<Role> role) {
-        this.username = name;
+    public User(String username, String surname, String email, int age, String password, Set<Role> roles) {
+        this.username = username;
         this.surname = surname;
-        this.roles = role;
+        this.email = email;
+        this.age = age;
+        this.password = password;
+        this.roles = roles;
     }
+
 
     public int getId() {
         return id;
@@ -59,6 +69,23 @@ public class User implements UserDetails {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -73,6 +100,14 @@ public class User implements UserDetails {
 
     public Set<Role> getRoles() {
         return roles;
+    }
+
+    public String roleToString() {
+        if(roles.toString().equals("[ADMIN]")) {
+            return "ADMIN";
+        } else {
+            return "USER";
+        }
     }
 
     @Override

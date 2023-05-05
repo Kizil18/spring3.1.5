@@ -28,8 +28,12 @@ public class UserController {
     }
 
     @GetMapping("/admin")
-    public String showAllUser(Model model) {
+    public String showAllUser(Model model, Authentication authentication) {
+        User user1 = (User)authentication.getPrincipal();
+        model.addAttribute("user1", user1);
         model.addAttribute("allUser", userService.listUser());
+        model.addAttribute("user2", new User());
+        model.addAttribute("allRole", roleService.roleList());
         return "index";
     }
 
@@ -47,7 +51,7 @@ public class UserController {
         return "user-info";
     }
     @PostMapping("/saveUser")
-    public String saveUser(@ModelAttribute("user") User user) {
+    public String saveUser(@ModelAttribute("user2") User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
         return "redirect:/admin";
@@ -55,20 +59,20 @@ public class UserController {
 
     @GetMapping("/updateUser")
     public String updateUser(@RequestParam("userId") int id, Model model) {
-        model.addAttribute("user", userService.getUser(id));
+        model.addAttribute("user3", userService.getUser(id));
         model.addAttribute("allRole", roleService.roleList());
         return "user-update";
     }
 
-    @PutMapping("/upUser")
-    public String upUser(@ModelAttribute("user") User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.updateUser(user);
+
+    @PatchMapping("/upUser")
+    public String updateUser(@ModelAttribute("user") User user, @RequestParam("id") int id) {
+        userService.updateUser(id, user);
         return "redirect:/admin";
     }
 
     @DeleteMapping("/deleteUser")
-    public String deleteUser(@RequestParam("userId") int id, Model model) {
+    public String deleteUser(@RequestParam("id") int id, Model model) {
         userService.deleteUser(id);
         return "redirect:/admin";
     }
