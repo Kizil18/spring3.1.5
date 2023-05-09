@@ -9,6 +9,7 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -30,34 +31,42 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
 
-//    @Override
-//    @Transactional
-//    public void updateUser(User user) {
-//        userRepository.save(user);
-//    }
-
     @Override
     @Transactional
-    public void updateUser(int id, User updateUser) {
-        User userToUpdate = userRepository.findById(id).get();
-        if (userToUpdate.getPassword().equals(updateUser.getPassword())) {
-            userRepository.save(updateUser);
+    public void updateUser(User user) {
+        if (user.getPassword().equals(user.getPassword())) {
+            userRepository.save(user);
         } else {
-            updateUser.setPassword(passwordEncoder.encode(updateUser.getPassword()));
-            userRepository.save(updateUser);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
         }
 
-
     }
+
+//    @Override
+//    @Transactional
+//    public void updateUser(int id, User updateUser) {
+//        User userToUpdate = userRepository.findById(id).get();
+//        if (userToUpdate.getPassword().equals(updateUser.getPassword())) {
+//            userRepository.save(updateUser);
+//        } else {
+//            updateUser.setPassword(passwordEncoder.encode(updateUser.getPassword()));
+//            userRepository.save(updateUser);
+//        }
+//
+//
+//    }
 
 
     @Override
     public User getUser(int id) {
-        return userRepository.getById(id);
+        Optional<User> getUser = userRepository.findById(id);
+        return getUser.orElse(null);
     }
 
     @Override
