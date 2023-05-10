@@ -65,12 +65,12 @@ function getEditModal(id) {
                 const select = document.querySelector('#edit_role').getElementsByTagName('option');
 
                 for (let i = 0; i < select.length; i++) {
-                    if (select[i].value === userEdit.roles[i].role) {
+                    if (select[i].value === userEdit.roles[i].name) {
                         select[i].selected = true;
                         if (i === select.length - 1) {
                             break;
                         }
-                    } else if (select[i + 1].value === userEdit.roles[i].role) {
+                    } else if (select[i + 1].value === userEdit.roles[i].name) {
                         select[i + 1].selected = true;
                     }
                 }
@@ -169,6 +169,23 @@ function addUser() {
     let password = document.getElementById('password').value;
     let roles = $("#role").val();
 
+    for (let i = 0; i < roles.length; i++) {
+        if (roles[i] === 'ROLE_ADMIN') {
+            roles[i] = {
+                'id': 1,
+                'role': 'ROLE_ADMIN',
+                "authority": "ROLE_ADMIN"
+            }
+        }
+        if (roles[i] === 'ROLE_USER') {
+            roles[i] = {
+                'id': 2,
+                'role': 'ROLE_USER',
+                "authority": "ROLE_USER"
+            }
+        }
+    }
+
     fetch(URL, {
         method: 'POST',
         headers: {
@@ -184,7 +201,7 @@ function addUser() {
         })
     })
         .then(() => {
-            document.getElementById('nav-users_table-tab').click()
+            document.getElementById('new-user').click()
             getUsers()
             document.newUserForm.reset()
         })

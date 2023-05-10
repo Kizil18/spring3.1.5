@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -28,9 +29,7 @@ public class User implements UserDetails {
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Role> roles;
-
-
+    private Set<Role> roles = new HashSet<>();
 
 
     public User() {
@@ -44,6 +43,9 @@ public class User implements UserDetails {
         this.password = password;
         this.roles = roles;
     }
+
+    @Transient
+    private String roleToString;
 
 
     public int getId() {
@@ -102,7 +104,7 @@ public class User implements UserDetails {
         return roles;
     }
 
-    public String roleToString() {
+    public String getRoleToString() {
         if(roles.toString().equals("[ADMIN]")) {
             return "ADMIN";
         } else {

@@ -6,8 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
-import ru.kata.spring.boot_security.demo.service.RoleService;
+import ru.kata.spring.boot_security.demo.service.RoleServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserService;
 import ru.kata.spring.boot_security.demo.model.User;
 
@@ -18,7 +17,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private RoleService roleService;
+    private RoleServiceImpl roleService;
 
     private PasswordEncoder passwordEncoder;
 

@@ -11,7 +11,7 @@
 <body>
 <nav class="navbar navbar-light bg-dark mb-3">
     <a class="navbar-brand text-white-50" href="#!"
-       th:text="${user1.getUsername()} + ' whith roles: ' + ${user1.roleToString()}">Navbar</a>
+       th:text="${user1.getUsername()} + ' whith roles: ' + ${user1.getRoleToString()}">Navbar</a>
     <a th:href="@{/logout}" class="btn btn-link text-white-50">Logout</a>
 </nav>
 
@@ -267,12 +267,12 @@
                             <div class="border">
                                 <div class="p-3 mb-3 border-bottom panel-heading h5 ">Add new user</div>
                                 <div class="row justify-content-center align-items-center boder mb-5">
-                                    <form class="justify-content-center col-4" id="newUserForm">
+                                    <form class="justify-content-center col-4" id="newUserForm" name="newUserForm">
 
                                         <input class="form-control" type="hidden">
                                         <div class="form-group text-center">
-                                            <label for="name">Name</label>
-                                            <input type="text" class="form-control" id="name"
+                                            <label for="username">Name</label>
+                                            <input type="text" class="form-control" id="username"
                                                    placeholder="Name">
                                         </div>
                                         <div class="form-group text-center">
